@@ -253,7 +253,7 @@ await tronWeb.transactionBuilder.sendTrx('toAddress', 10, fromAddress, { permiss
 // If the third parameter is object, it will be treated as options and fromAddress will be its default value, that's tronWeb defaultAddress.
 await tronWeb.transactionBuilder.sendTrx('toAddress', 10, { permissionId: 1 });
 ```
-In v6.x, we use typescript, please note the default value parameter and optional parameter. if you want to use default value of fromAddress but pass value after it, you must use "undefined" as placeholder, or pass the default value. It's important and worth to check all your multi-sign transanctions created by transanctionBuilder.
+In v6.x, we use typescript, please note the default value parameter and optional parameter. if you want to use default value of fromAddress but pass value after it, you must use "undefined" as placeholder, or pass the default value. <font color=red> It's important and worth to check all your multi-sign transanctions created by transanctionBuilder.</font>
 
 ```js
 await tronWeb.transactionBuilder.sendTrx('toAddress', 10, undefined, { permissionId: 1 });
