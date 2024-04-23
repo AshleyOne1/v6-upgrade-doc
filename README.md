@@ -1,6 +1,16 @@
+[v6-upgrade-doc](#v6-upgrade-doc)    
+    - [1. Installation](#1-installation)    
+    - [2. import](#2-import)    
+    - [3. Creating TronWeb Instance](#3-creating-tronweb-instance)    
+    - [4. TronWeb API Changes](#4-tronweb-api-changes)        
+    - [4.1. TronWeb.createRandom](#41-tronwebcreaterandom)        
+    - [4.2. TronWeb.fromMnemonic](#42-tronwebfrommnemonic)        
+    - [4.3. utils.abi.decodeParams](#43-utilsabidecodeparams)        
+    - [4.4. Strict check for position and type of parameters](#44-strict-check-for-position-and-type-of-parameters)
+
 # v6-upgrade-doc
 
-## Installation
+## 1. Installation
 In the previous version before v6:
 ```bash
 npm install tronweb   # 或者：yarn add tronweb
@@ -11,7 +21,7 @@ In v6.x:
 npm install tronweb@beta  # 或者 yarn add tronweb@beta
 ```
 
-## import
+## 2. import
 In the previous version before v6:
 
 ```js
@@ -33,7 +43,7 @@ import {TronWeb, Plugin, providers, utils, Trx, Event, TransactionBuilder, Contr
 
 NOTE: In a word, You can use major function parts like TransactionBuilder/Trx/Contract... independently in v6.x. But in previous version, we can only take TransactionBuilder/Trx/Contract... as attribute of tronweb instance,such as tronweb.TransactionBuilder.
 
-## Creating an Instance
+## 3. Creating TronWeb Instance
 In the previous version before v6, Tronweb constructor is as below.
 ```js
 constructor(options = false,
@@ -185,9 +195,9 @@ const tronWeb = new TronWeb({
   }
 )
 ```
-## TronWeb API Changes
+## 4. TronWeb API Changes
 
-### TronWeb.createRandom
+### 4.1. TronWeb.createRandom
 
 In the previous version before v6, this API hasing optional parameter - options with three fields: 
 
@@ -206,7 +216,7 @@ const path = "m/44'/195'/3'/0/99";
 const options = { path: path, wordlist};
 const newAccount = await tronWeb.createRandom(password, path, wordlist);
 ```
-### TronWeb.fromMnemonic 
+### 4.2. TronWeb.fromMnemonic 
 
 Change TronWeb.fromMnemonic(mnemonic, path, wordlist) to TronWeb.fromMnemonic(mnemonic, path, password, wordlist).
 
@@ -226,7 +236,7 @@ path = "m/44'/195'/3'/0/99"
 const newAccount = await tronWeb.createRandom(password, path);
 const newAccount2 = await tronWeb.fromMnemonic(newAccount.mnemonic.phrase, path,password, wordlist);
 ```
-### utils.abi.decodeParams
+### 4.3. utils.abi.decodeParams
 
 
 In the previous version before v6, if the type of third param is boolean, "names" param could be not passed.
@@ -242,7 +252,7 @@ const types = ['string', 'string', 'uint8', 'bytes32', 'uint256'];
 const output = '0x00000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000000e00000000000000000000000000000000000000000000000000000000000000012dc03b7993bad736ad595eb9e3ba51877ac17ecc31d2355f8f270125b9427ece700000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000011506920446179204e30306220546f6b656e00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000035049450000000000000000000000000000000000000000000000000000000000';
 const result = tronWeb.utils.abi.decodeParams([], types, output);
 ```
-### Strict check for position and type of parameters
+### 4.4. Strict check for position and type of parameters
 In the previous version, most methods(expecially in transanctionBuilder API) support variable parameter length. For example, the following codes are both valid:
 
 ```js
