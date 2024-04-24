@@ -10,7 +10,7 @@
 
 # v6-upgrade-doc
 
-## 1. import
+## 1. Import
 
 In previous versions before v6, the common import statement is like below:
 
@@ -254,6 +254,54 @@ receiverAddress = 'THph9K2M2nLvkianrMGswRhz5hjSA9fuH7'
 const transaction = await tronWeb.transactionBuilder.delegateResource(10e6, receiverAddress, 'BANDWIDTH',{permissionId : 2})
 //V6 pass default value or new value.
 const transaction = await tronWeb.transactionBuilder.delegateResource(10e6, receiverAddress, 'BANDWIDTH', tronWeb.defaultAddress.base58, false, 0, {permissionId : 2});
+```
+
+### 3.5 Trx.sendRawTransaction
+
+In previous versions before v6, `Trx.sendRawTransaction()` can accept signed transanction which is refer to transanction. But in v6, you must declare a new variable to the signed transanction. Please refer belwo:
+
+```js
+// In previous versions:
+await tronWeb.trx.sign(transaction, pk);
+const result = {
+    transaction,
+    transaction,
+    receipt: await tronWeb.trx.sendRawTransaction(transaction),
+};
+// In v6+:
+const signedTransaction = await tronWeb.trx.sign(transaction, pk);
+const result = {
+    transaction,
+    transaction,
+    receipt: await tronWeb.trx.sendRawTransaction(signedTransaction),
+};
+```
+### 3.6 Declare type for plugins
+
+When using plugins in typescript, TronWeb doesn't know what are added to it. So, declaring custom type should be added too. For example, you have a plugin called MyPlugin, before you want to use it, you should add plugins type to TronWeb to avoid the editor prompting errors. You can do it as below:
+
+```js
+declare namespace globalThis {
+    interface MyTronWeb extends TronWeb {
+        trx: {
+            getCurrentBlock(): Promise<Block & { fromPlugin: true }>;
+            getLatestBlock(): Promise<Block & { fromPlugin: true }>;
+            getSomeParameter(): string;
+        } & Trx;
+    }
+}
+const tronWeb = new TronWeb() as globalThis.MyTronWeb;
+const someParameter = 'someParameter';
+const result = tronWeb.plugin.register(MyPlugin, {
+    someParameter,
+});
+
+const result2 = await tronWeb.trx.getCurrentBlock();
+assert.isTrue(result2.fromPlugin);
+assert.equal(result2.blockID.length, 64);
+
+const result3 = await tronWeb.trx.getSomeParameter();
+assert.equal(result3, someParameter);
 ```
 
 
