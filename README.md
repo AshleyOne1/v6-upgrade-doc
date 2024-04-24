@@ -1,12 +1,17 @@
-[v6-upgrade-doc](#v6-upgrade-doc)    
-    - [1. Installation](#1-installation)    
-    - [2. import](#2-import)    
-    - [3. Creating TronWeb Instance](#3-creating-tronweb-instance)    
-    - [4. TronWeb API Changes](#4-tronweb-api-changes)        
-    - [4.1. TronWeb.createRandom](#41-tronwebcreaterandom)        
-    - [4.2. TronWeb.fromMnemonic](#42-tronwebfrommnemonic)        
-    - [4.3. utils.abi.decodeParams](#43-utilsabidecodeparams)        
-    - [4.4. Strict check for position and type of parameters](#44-strict-check-for-position-and-type-of-parameters)
+<!-- TOC -->
+
+- [v6-upgrade-doc](#v6-upgrade-doc)
+    - [1. Import](#1-import)
+    - [2. Creating TronWeb Instance](#2-creating-tronweb-instance)
+    - [3. TronWeb API Changes](#3-tronweb-api-changes)
+        - [3.1. TronWeb.createRandom](#31-tronwebcreaterandom)
+        - [3.2. TronWeb.fromMnemonic](#32-tronwebfrommnemonic)
+        - [3.3. utils.abi.decodeParams](#33-utilsabidecodeparams)
+        - [3.4. Strict check for position and type of parameters](#34-strict-check-for-position-and-type-of-parameters)
+        - [3.5 Trx.sendRawTransaction](#35-trxsendrawtransaction)
+        - [3.6 Declare type for plugins](#36-declare-type-for-plugins)
+
+<!-- /TOC -->
 
 # v6-upgrade-doc
 
